@@ -1,8 +1,11 @@
 package org.demo.service.impl;
 
-import static java.util.Collections.emptyList;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.demo.service.UserBusinessService;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,6 +26,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (applicationUser == null) {
             throw new UsernameNotFoundException(username);
         }
-        return new User(applicationUser.getUserName(), applicationUser.getPassword(), emptyList());
+        List<GrantedAuthority> authorityList = new ArrayList<>();
+        SimpleGrantedAuthority authority= new SimpleGrantedAuthority("ACTUATOR");
+        authorityList.add(authority);
+        return new User(applicationUser.getUserName(), applicationUser.getPassword(), authorityList);
     }
 }
