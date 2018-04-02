@@ -30,7 +30,7 @@ public class ScheduledTasks {
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(fixedRate = 300000)
     public void getHealthStatus() {
         log.info("The time is now {}", dateFormat.format(new Date()));
         ResponseEntity<String> responseEntity =restTemplate.getForEntity(healthUrl, String.class);
